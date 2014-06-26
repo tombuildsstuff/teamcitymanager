@@ -1,0 +1,3 @@
+[submodule "teamcitysharp"]
+	path = teamcitysharp
+	url = https://github.com/stack72/TeamCitySharp.git
