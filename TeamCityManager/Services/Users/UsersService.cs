@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using EasyHttp.Infrastructure;
+
     using TeamCityManager.Entities;
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Repositories.Users;
@@ -31,18 +33,31 @@
         {
             foreach (var user in users)
             {
-                var teamcityUser = teamcity.Users.Details(user.Username);
+                var teamcityUser = GetUser(teamcity, user);
                 if (teamcityUser == null)
                 {
                     if (!CreateUser(teamcity, logger, user))
                         continue;
 
-                    teamcityUser = teamcity.Users.Details(user.Username);
+                    teamcityUser = GetUser(teamcity, user);
                 }
 
                 UpdateAdminRights(teamcity, logger, teamcityUser, user);
                 UpdateGroups(teamcity, logger, teamcityUser, user);
             }
+        }
+
+        private static TeamCitySharp.DomainEntities.User GetUser(ITeamCityClient teamcity, User user)
+        {
+            try
+            {
+                return teamcity.Users.Details(user.Username);
+            }
+            catch (HttpException)
+            {
+            }
+
+            return null;
         }
 
         private static void DeleteUsers(ITeamCityClient client, ILogger logger, IEnumerable<User> localUsers)

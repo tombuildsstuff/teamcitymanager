@@ -57,7 +57,7 @@
 
             try
             {
-                logger.Info("No Build Configuration for '{0}' in the '{1}' project", config.Name, config.Project);
+                logger.Info("Creating Build Configuration for '{0}' in the '{1}' project", config.Name, config.Project);
                 var teamcityConfiguration = client.BuildConfigs.CreateConfiguration(config.Project, config.Name);
 
                 logger.Info("Build Configuration Created");
