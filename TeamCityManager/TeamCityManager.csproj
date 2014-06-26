@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14AD8CC4-8989-40B5-BCD3-11B8E8E9C97B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TeamCityManager</RootNamespace>
+    <AssemblyName>TeamCityManager</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EasyHttp, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\teamcitysharp\packages\EasyHttp.1.6.1.0\lib\net40\EasyHttp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\BuildConfiguration.cs" />
+    <Compile Include="Entities\BuildStep.cs" />
+    <Compile Include="Entities\BuildTrigger.cs" />
+    <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\VCSRoot.cs" />
+    <Compile Include="Infrastructure\Logging\ConsoleLogger.cs" />
+    <Compile Include="Infrastructure\Logging\ILogger.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BuildConfigurations\FakeBuildConfigurationsRepository.cs" />
+    <Compile Include="Repositories\BuildConfigurations\IBuildConfigurationsRepository.cs" />
+    <Compile Include="Repositories\Projects\FakeProjectsRepository.cs" />
+    <Compile Include="Repositories\Projects\IProjectsRepository.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Repositories\Groups\IGroupsRepository.cs" />
+    <Compile Include="Repositories\Groups\FakeGroupsRepository.cs" />
+    <Compile Include="Infrastructure\Configuration\FakeTeamCityConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\ITeamCityConfiguration.cs" />
+    <Compile Include="Repositories\Users\FakeUsersRepository.cs" />
+    <Compile Include="Repositories\Users\IUsersRepository.cs" />
+    <Compile Include="Services\BuildConfigurations\BuildConfigurationsService.cs" />
+    <Compile Include="Services\BuildConfigurations\IBuildConfigurationsService.cs" />
+    <Compile Include="Services\BuildSteps\FakeBuildStepsService.cs" />
+    <Compile Include="Services\BuildSteps\IBuildStepsService.cs" />
+    <Compile Include="Services\IManagementService.cs" />
+    <Compile Include="Services\ITeamCityService.cs" />
+    <Compile Include="Services\Groups\IGroupsService.cs" />
+    <Compile Include="Services\Groups\GroupsService.cs" />
+    <Compile Include="Services\Users\IUsersService.cs" />
+    <Compile Include="Services\ManagementService.cs" />
+    <Compile Include="Services\Projects\IProjectsService.cs" />
+    <Compile Include="Services\Projects\ProjectsService.cs" />
+    <Compile Include="Services\Users\UsersService.cs" />
+    <Compile Include="Services\VCSRoots\FakeVCSRootsService.cs" />
+    <Compile Include="Services\VCSRoots\IVCSRootsService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\BuildConfigurations\" />
+    <Folder Include="Configuration\Projects\" />
+    <Folder Include="Configuration\Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\teamcitysharp\src\TeamCitySharp\TeamCitySharp.csproj">
+      <Project>{87598714-132F-478E-866E-8C1AF3E83057}</Project>
+      <Name>TeamCitySharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
