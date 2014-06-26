@@ -3,7 +3,7 @@ TeamCity Manager
 
 Configure your TeamCity server using your Configuration Management system.
 
-Built on the awesome [http://github.com/stack72/teamcitysharp](TeamCitySharp by @stack72) and the [http://confluence.jetbrains.com/display/TCD8/REST+API](TeamCity API)
+Built on the awesome [TeamCitySharp by @stack72](http://github.com/stack72/teamcitysharp) and the [TeamCity API](http://confluence.jetbrains.com/display/TCD8/REST+API)
 
 Installation
 ------------
