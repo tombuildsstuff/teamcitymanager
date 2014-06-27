@@ -14,7 +14,7 @@
         {
             get
             {
-                return "teamcity";
+                return "172.16.55.181";
             }
         }
 
@@ -22,7 +22,7 @@
         {
             get
             {
-                return "username";
+                return "admin";
             }
         }
     }

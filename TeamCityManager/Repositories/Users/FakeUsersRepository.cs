@@ -12,12 +12,12 @@
             {
                 new User
                 {
-                    Email = "tom@ibuildstuff.co.uk",
+                    Email = "demouser@ibuildstuff.co.uk",
                     FullName = "Tom Harvey",
                     Groups = new List<string> { "Administrator", "Test Users" },
                     IsAdmin = true,
                     Password = "p@ssw0rd",
-                    Username = "tharvey"
+                    Username = "demouser"
                 },
                 new User
                 {
