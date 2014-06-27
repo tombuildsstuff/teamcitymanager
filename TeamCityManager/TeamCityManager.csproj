@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Entities\BuildConfiguration.cs" />
     <Compile Include="Entities\BuildStep.cs" />
+    <Compile Include="Entities\BuildSteps\CustomScriptBuildStep.cs" />
+    <Compile Include="Entities\BuildSteps\ExecutableBuildStep.cs" />
     <Compile Include="Entities\BuildTrigger.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\User.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BuildConfigurations\FakeBuildConfigurationsRepository.cs" />
     <Compile Include="Repositories\BuildConfigurations\IBuildConfigurationsRepository.cs" />
+    <Compile Include="Entities\BuildSteps\NUnitBuildStep.cs" />
     <Compile Include="Repositories\Projects\FakeProjectsRepository.cs" />
     <Compile Include="Repositories\Projects\IProjectsRepository.cs" />
     <Compile Include="Entities\Project.cs" />
@@ -67,8 +70,10 @@
     <Compile Include="Repositories\Users\IUsersRepository.cs" />
     <Compile Include="Services\BuildConfigurations\BuildConfigurationsService.cs" />
     <Compile Include="Services\BuildConfigurations\IBuildConfigurationsService.cs" />
-    <Compile Include="Services\BuildSteps\FakeBuildStepsService.cs" />
+    <Compile Include="Services\BuildSteps\BuildStepsService.cs" />
+    <Compile Include="Entities\BuildSteps\IBuildStep.cs" />
     <Compile Include="Services\BuildSteps\IBuildStepsService.cs" />
+    <Compile Include="Entities\BuildSteps\MSBuildBuildStep.cs" />
     <Compile Include="Services\IManagementService.cs" />
     <Compile Include="Services\ITeamCityService.cs" />
     <Compile Include="Services\Groups\IGroupsService.cs" />

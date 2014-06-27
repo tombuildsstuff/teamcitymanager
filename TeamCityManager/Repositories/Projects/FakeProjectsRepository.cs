@@ -1,6 +1,7 @@
 ﻿namespace TeamCityManager.Repositories.Projects
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using TeamCityManager.Entities;
 
@@ -8,10 +9,14 @@
     {
         public List<Project> GetAll()
         {
-            return new List<Project>
+            return Enumerable.Range(1, 4).Select(GetProject).ToList();
+        }
+
+        private Project GetProject(int id)
+        {
+            return new Project
             {
-                new Project { Name = "Foo" },
-                new Project { Name = "Bar" },
+                Name = string.Format("Project {0}", id)
             };
         }
     }

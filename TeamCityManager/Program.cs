@@ -41,8 +41,8 @@
 
         private static IManagementService GetManagementService()
         {
-            var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(),
-                                                        new FakeBuildStepsService(),
+            var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()),
+                                                        new BuildStepsService(),
                                                         new FakeVCSRootsService());
             var groups = new GroupsService(new FakeGroupsRepository());
             var projects = new ProjectsService(new FakeProjectsRepository());
