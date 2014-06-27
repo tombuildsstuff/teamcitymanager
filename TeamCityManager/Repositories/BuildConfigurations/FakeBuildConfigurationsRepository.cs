@@ -1,12 +1,12 @@
-﻿using TeamCityManager.Repositories.Projects;
-
-namespace TeamCityManager.Repositories.BuildConfigurations
+﻿namespace TeamCityManager.Repositories.BuildConfigurations
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using TeamCityManager.Entities;
     using TeamCityManager.Entities.BuildSteps;
+
+    using TeamCityManager.Repositories.Projects;
 
     public class FakeBuildConfigurationsRepository : IBuildConfigurationsRepository
     {
@@ -17,7 +17,7 @@ namespace TeamCityManager.Repositories.BuildConfigurations
             _projects = projects;
         }
 
-        public IList<BuildConfiguration> GetAll()
+        public IEnumerable<BuildConfiguration> GetAll()
         {
             var projects = _projects.GetAll().Select(p => p.Name);
 
