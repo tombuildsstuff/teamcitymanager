@@ -93,11 +93,7 @@
     <Compile Include="Services\VCSRoots\VCSRootsService.cs" />
     <Compile Include="Services\VCSRoots\IVCSRootsService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\BuildConfigurations\" />
-    <Folder Include="Configuration\Projects\" />
-    <Folder Include="Configuration\Users\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
