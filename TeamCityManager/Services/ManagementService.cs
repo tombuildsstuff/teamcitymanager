@@ -1,5 +1,7 @@
 ﻿namespace TeamCityManager.Services
 {
+    using System;
+
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Services.BuildConfigurations;
     using TeamCityManager.Services.Projects;
@@ -39,7 +41,16 @@
         private static void ExecuteService(string name, ITeamCityService service, ITeamCityClient teamcity, ILogger logger)
         {
             logger.Info("Starting '{0}' step", name);
-            service.Run(teamcity, logger);
+
+            try
+            {
+                service.Run(teamcity, logger);
+            }
+            catch (Exception ex)
+            {
+                logger.Exception(string.Format("Exception thrown in '{0}' module", name), ex);
+            }
+
             logger.Info("Ending '{0}' step", name);
         }
     }
