@@ -39,9 +39,9 @@
                 var vcsRoot = new VcsRoot
                 {
                     Name = root.Name,
-                    Href = root.Root.RepositoryUrl,
-                    vcsName = root.Root.Type,
-                    Properties = root.Root.Properties
+                    Href = root.Settings.RepositoryUrl,
+                    vcsName = root.Settings.Type,
+                    Properties = root.Settings.Properties
                 };
                 client.VcsRoots.Create(vcsRoot, Project.Root());
             }

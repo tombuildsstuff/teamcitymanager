@@ -1,0 +1,9 @@
+{
+  name: "Simple Backup Github",
+  type: "Git",
+  settings: {
+    authentication: "Anonymous",
+    branch: "master",
+    repositoryUrl: "http://github.com/tombuildsstuff/SimpleBackup.git"
+  }
+}

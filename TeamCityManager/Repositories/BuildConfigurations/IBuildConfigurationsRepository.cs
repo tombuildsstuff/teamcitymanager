@@ -6,6 +6,6 @@
 
     public interface IBuildConfigurationsRepository
     {
-        IEnumerable<BuildConfiguration> GetAll();
+        IList<BuildConfiguration> GetAll();
     }
 }

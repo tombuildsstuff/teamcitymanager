@@ -6,6 +6,6 @@
 
     public interface IProjectsRepository
     {
-        List<Project> GetAll();
+        IList<Project> GetAll();
     }
 }

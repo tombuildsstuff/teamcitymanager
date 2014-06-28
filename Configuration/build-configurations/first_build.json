@@ -1,0 +1,49 @@
+{
+ name: "First Build",
+ project: "Foo",
+ steps: [
+  {
+    name: "1) Run Custom Script",
+    type: "CustomScript",
+    settings: {
+      customScript: "custom script in here"
+    }
+  },
+  {
+    name: "2) Run Executable",
+    type: "Executable",
+    settings: {
+      executable: "custom exe path",
+      arguments: "/foo /bar"
+    }
+  },
+  {
+    name: "3) MSBuild Step",
+    type: "MSBuild",
+    settings: {
+      architecture: "x86",
+      msbuildVersion: "v12.0",
+      solutionName: "SimpleBackup.sln",
+      toolsVersion: "v12.0"
+    }
+  },
+  {
+    name: "4) NUnit Step",
+    type: "NUnit",
+    settings: {
+      assembliesToTest: [ "foo", "bar" ],
+      dotNetVersion: "v4.0",
+      platform: "MSIL",
+      version: "2.6.3"
+    }
+  }
+ ],
+ triggers: [
+  {
+    type: "vcs",
+    settings: {
+    }
+  }
+ ],
+ vcsRoots: [ "Simple Backup Github" ]
+}

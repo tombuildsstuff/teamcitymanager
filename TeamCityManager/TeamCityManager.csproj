@@ -40,6 +40,10 @@
     <Reference Include="JsonFx">
       <HintPath>..\packages\JsonFx.2.0.1209.2802\lib\net40\JsonFx.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -56,7 +60,6 @@
     <Compile Include="Entities\BuildTriggers\VCSBuildTrigger.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\AttachedVCSRoot.cs" />
     <Compile Include="Entities\VCSRoot.cs" />
     <Compile Include="Entities\VCSRoots\GitVCSRoot.cs" />
     <Compile Include="Entities\VCSRoots\IVCSRoot.cs" />
@@ -65,17 +68,17 @@
     <Compile Include="Infrastructure\Logging\ILogger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\BuildConfigurations\FakeBuildConfigurationsRepository.cs" />
+    <Compile Include="Repositories\BuildConfigurations\BuildConfigurationsRepository.cs" />
     <Compile Include="Repositories\BuildConfigurations\IBuildConfigurationsRepository.cs" />
     <Compile Include="Entities\BuildSteps\NUnitBuildStep.cs" />
-    <Compile Include="Repositories\Projects\FakeProjectsRepository.cs" />
+    <Compile Include="Repositories\Projects\ProjectsRepository.cs" />
     <Compile Include="Repositories\Projects\IProjectsRepository.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="Infrastructure\Configuration\FakeTeamCityConfiguration.cs" />
-    <Compile Include="Infrastructure\Configuration\ITeamCityConfiguration.cs" />
-    <Compile Include="Repositories\Users\FakeUsersRepository.cs" />
+    <Compile Include="Infrastructure\Configuration\FakeConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
+    <Compile Include="Repositories\Users\UsersRepository.cs" />
     <Compile Include="Repositories\Users\IUsersRepository.cs" />
-    <Compile Include="Repositories\VCSRoots\FakeVCSRootsRepository.cs" />
+    <Compile Include="Repositories\VCSRoots\VCSRootsRepository.cs" />
     <Compile Include="Repositories\VCSRoots\IVCSRootsRepository.cs" />
     <Compile Include="Services\BuildConfigurations\BuildConfigurationsService.cs" />
     <Compile Include="Services\BuildConfigurations\IBuildConfigurationsService.cs" />

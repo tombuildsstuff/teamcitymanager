@@ -2,10 +2,14 @@
 {
     using System;
 
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     using TeamCitySharp.DomainEntities;
 
     public class GitVCSRoot : IVCSRoot
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public AuthenticationType Authentication { get; set; }
 
         public string Branch { get; set; }

@@ -37,10 +37,9 @@
             CreateOrUpdateConfigurations(client, logger, localConfigurations);
         }
 
-        private void CreateOrUpdateConfigurations(ITeamCityClient client, ILogger logger, IEnumerable<BuildConfiguration> localConfigurations)
+        private void CreateOrUpdateConfigurations(ITeamCityClient client, ILogger logger, IList<BuildConfiguration> localConfigurations)
         {
-            // create those without triggers first, as they're required for a trigger to be applied
-            foreach (var config in localConfigurations.OrderBy(c => c.Triggers.Count))
+            foreach (var config in localConfigurations)
             {
                 var buildConfig = GetTeamCityConfig(client, config);
                 if (buildConfig == null)
@@ -53,6 +52,12 @@
 
                 AttachVCSRoots(client, logger, config, buildConfig);
                 _buildSteps.UpdateForBuildConfiguration(client, logger, config, buildConfig);
+            }
+
+            // add all the build triggers once all the configs are in.. (saves working out the dependency chain..)
+            foreach (var config in localConfigurations)
+            {
+                var buildConfig = GetTeamCityConfig(client, config);
                 AttachBuildTriggers(client, logger, config, buildConfig);
             }
         }
@@ -79,10 +84,10 @@
 
         private void AttachVCSRoots(ITeamCityClient client, ILogger logger, BuildConfiguration config, BuildConfig buildConfig)
         {
-            foreach (var root in config.VCSRoots)
+            foreach (var vcsRoot in config.VCSRoots)
             {
-                logger.Info("Attaching VCS Root ID '{0}' to Build Configuration '{1}'..", root.Name, buildConfig.Id);
-                var teamCityRoot = client.VcsRoots.Get(BuildTypeLocator.WithName(root.Name));
+                logger.Info("Attaching VCS Root ID '{0}' to Build Configuration '{1}'..", vcsRoot, buildConfig.Id);
+                var teamCityRoot = client.VcsRoots.Get(BuildTypeLocator.WithName(vcsRoot));
                 client.VcsRoots.AttachVcsRoot(BuildTypeLocator.WithId(buildConfig.Id), teamCityRoot);
             }
         }

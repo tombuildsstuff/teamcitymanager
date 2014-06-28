@@ -1,0 +1,16 @@
+{
+ name: "Demo Build Configuration",
+ project: "Foo",
+ steps: [
+ ],
+ triggers: [
+  {
+   type: "finishedBuild",
+   settings: {
+     buildConfigurationName: "First Build",
+     runOnlyAfterSuccessfulBuild: true
+   }
+  }
+ ],
+ vcsRoots: [ "Simple Backup Github" ]
+}

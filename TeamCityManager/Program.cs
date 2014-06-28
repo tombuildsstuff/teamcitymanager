@@ -22,29 +22,36 @@
     {
         public static void Main(string[] args)
         {
-            var configuration = new FakeTeamCityConfiguration();
+            var configuration = new FakeConfiguration();
             var logger = new ConsoleLogger();
 
             var teamcity = GetTeamCityClient(configuration);
-            var managementService = GetManagementService(teamcity);
+            var managementService = GetManagementService(teamcity, configuration);
             managementService.Run(teamcity, logger);
 
             Console.ReadLine();
         }
 
-        private static ITeamCityClient GetTeamCityClient(ITeamCityConfiguration configuration)
+        private static ITeamCityClient GetTeamCityClient(IConfiguration configuration)
         {
             var client = new TeamCityClient(configuration.TeamCityServerUrl);
             client.Connect(configuration.Username, configuration.Password);
             return client;
         }
 
-        private static IManagementService GetManagementService(ITeamCityClient client)
+        private static IManagementService GetManagementService(ITeamCityClient client, IConfiguration configuration)
         {
-            var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()), new BuildStepsService(), new BuildTriggerBuilder(client));
-            var projects = new ProjectsService(new FakeProjectsRepository());
-            var users = new UsersService(new FakeUsersRepository());
-            var vcsRoots = new VCSRootsService(new FakeVCSRootsRepository());
+            var buildConfigurationsRepository = new BuildConfigurationsRepository(configuration);
+            var projectsRepository = new ProjectsRepository(configuration);
+            var usersRepository = new UsersRepository(configuration);
+            var vcsRootsRepository = new VCSRootsRepository(configuration);
+            var buildStepsService = new BuildStepsService();
+            var buildTriggerBuilder = new BuildTriggerBuilder(client);
+
+            var builds = new BuildConfigurationsService(buildConfigurationsRepository, buildStepsService, buildTriggerBuilder);
+            var projects = new ProjectsService(projectsRepository);
+            var users = new UsersService(usersRepository);
+            var vcsRoots = new VCSRootsService(vcsRootsRepository);
             return new ManagementService(builds, projects, users, vcsRoots);
         }
     }
