@@ -12,8 +12,8 @@
 
         public void Exception(string message, Exception exception)
         {
-            Error(message);
-            Error(exception.ToString());
+            Console.WriteLine("EXCEPTION: {0}", message);
+            Console.WriteLine(exception.ToString());
         }
 
         public void Info(string message, params object[] format)
