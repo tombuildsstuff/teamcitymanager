@@ -1,6 +1,8 @@
 ﻿namespace TeamCityManager.Services.Projects
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using EasyHttp.Infrastructure;
 
@@ -42,9 +44,17 @@
             }
         }
 
-        private void DeleteProjects(ITeamCityClient client, ILogger logger, List<Project> localProjects)
+        private void DeleteProjects(ITeamCityClient client, ILogger logger, IEnumerable<Project> localProjects)
         {
-            // TODO: implement me..
+            var teamcityProjects = client.Projects.All();
+            var rootProject = TeamCitySharp.DomainEntities.Project.Root();
+            var unmanagedProjects = teamcityProjects.Where(tcp => !tcp.Name.Equals(rootProject.Name, StringComparison.InvariantCultureIgnoreCase) && 
+                                                                  !localProjects.Any(lp => tcp.Name.Equals(lp.Name, StringComparison.InvariantCultureIgnoreCase)));
+            foreach (var unmanagedProject in unmanagedProjects)
+            {
+                logger.Info("Removing unmanaged project '{0}", unmanagedProject.Name);
+                client.Projects.Delete(unmanagedProject.Name);
+            }
         }
 
         private bool CreateProject(ITeamCityClient client, ILogger logger, Project project)
