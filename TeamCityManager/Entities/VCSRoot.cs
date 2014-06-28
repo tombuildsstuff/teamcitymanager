@@ -1,8 +1,5 @@
 ﻿namespace TeamCityManager.Entities
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     using TeamCityManager.Entities.VCSRoots;
 
     public class VCSRoot
@@ -11,7 +8,6 @@
 
         public IVCSRoot Settings { get; set; }
 
-        [JsonConverter(typeof(StringEnumConverter))]
         public VCSType Type { get; set; }
 
         public enum VCSType
