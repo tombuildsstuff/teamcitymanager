@@ -14,8 +14,6 @@
                 {
                     Email = "demouser@ibuildstuff.co.uk",
                     FullName = "Tom Harvey",
-                    Groups = new List<string> { "Administrator", "Test Users" },
-                    IsAdmin = true,
                     Password = "p@ssw0rd",
                     Username = "demouser"
                 },
@@ -23,7 +21,6 @@
                 {
                     Email = "test@ibuildstuff.co.uk",
                     FullName = "Test User",
-                    Groups = new List<string> { "Test Users" },
                     Password = "p@ssw0rd",
                     Username = "test_user"
                 }

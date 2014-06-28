@@ -71,8 +71,6 @@
     <Compile Include="Repositories\Projects\FakeProjectsRepository.cs" />
     <Compile Include="Repositories\Projects\IProjectsRepository.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="Repositories\Groups\IGroupsRepository.cs" />
-    <Compile Include="Repositories\Groups\FakeGroupsRepository.cs" />
     <Compile Include="Infrastructure\Configuration\FakeTeamCityConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\ITeamCityConfiguration.cs" />
     <Compile Include="Repositories\Users\FakeUsersRepository.cs" />
@@ -87,8 +85,6 @@
     <Compile Include="Entities\BuildSteps\MSBuildBuildStep.cs" />
     <Compile Include="Services\IManagementService.cs" />
     <Compile Include="Services\ITeamCityService.cs" />
-    <Compile Include="Services\Groups\IGroupsService.cs" />
-    <Compile Include="Services\Groups\GroupsService.cs" />
     <Compile Include="Services\Users\IUsersService.cs" />
     <Compile Include="Services\ManagementService.cs" />
     <Compile Include="Services\Projects\IProjectsService.cs" />

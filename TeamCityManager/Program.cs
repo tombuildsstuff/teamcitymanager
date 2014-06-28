@@ -6,14 +6,12 @@
     using TeamCityManager.Infrastructure.Configuration;
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Repositories.BuildConfigurations;
-    using TeamCityManager.Repositories.Groups;
     using TeamCityManager.Repositories.Projects;
     using TeamCityManager.Repositories.Users;
     using TeamCityManager.Repositories.VCSRoots;
     using TeamCityManager.Services;
     using TeamCityManager.Services.BuildConfigurations;
     using TeamCityManager.Services.BuildSteps;
-    using TeamCityManager.Services.Groups;
     using TeamCityManager.Services.Projects;
     using TeamCityManager.Services.Users;
     using TeamCityManager.Services.VCSRoots;
@@ -44,11 +42,10 @@
         private static IManagementService GetManagementService(ITeamCityClient client)
         {
             var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()), new BuildStepsService(), new BuildTriggerBuilder(client));
-            var groups = new GroupsService(new FakeGroupsRepository());
             var projects = new ProjectsService(new FakeProjectsRepository());
             var users = new UsersService(new FakeUsersRepository());
             var vcsRoots = new VCSRootsService(new FakeVCSRootsRepository());
-            return new ManagementService(builds, groups, projects, users, vcsRoots);
+            return new ManagementService(builds, projects, users, vcsRoots);
         }
     }
 }

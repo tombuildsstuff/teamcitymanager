@@ -44,7 +44,7 @@
             }
         }
 
-        public static IList<BuildConfig> GetAttachedToVCSRoot(this IBuildConfigs configs, VcsRoot root)
+        public static IEnumerable<BuildConfig> GetAttachedToVCSRoot(this IBuildConfigs configs, VcsRoot root)
         {
             var attachedBuildConfigurations = new List<BuildConfig>();
             var buildConfigurations = configs.All();
@@ -62,7 +62,7 @@
             return attachedBuildConfigurations;
         }
 
-        public static IList<BuildConfig> GetWithTriggers(this IBuildConfigs configs)
+        public static IEnumerable<BuildConfig> GetWithTriggers(this IBuildConfigs configs)
         {
             var attachedBuildConfigurations = new List<BuildConfig>();
             var buildConfigurations = configs.All();
