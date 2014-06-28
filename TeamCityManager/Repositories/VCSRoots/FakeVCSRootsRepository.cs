@@ -20,6 +20,18 @@
                         Branch = "master",
                         RepositoryUrl = "http://github.com/tombuildsstuff/SimpleBackup.git",
                     }
+                },
+                new VCSRoot
+                {
+                    Name = "Simple Backup Github Private Repo",
+                    Root = new GitVCSRoot
+                    {
+                        Authentication = GitVCSRoot.AuthenticationType.PrivateKeyFile,
+                        PrivateKeyFilePath = "C:\\sekret-file.txt",
+                        PrivateKeyPassword = "passw0rd",
+                        Branch = "master",
+                        RepositoryUrl = "http://github.com/tombuildsstuff/SimpleBackup-Private.git",
+                    }
                 }
             };
         }

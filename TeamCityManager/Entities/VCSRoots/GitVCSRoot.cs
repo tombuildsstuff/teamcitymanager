@@ -39,7 +39,7 @@
                     case AuthenticationType.PrivateKeyFile:
                         properties.Add("authMethod", "PRIVATE_KEY_FILE");
                         properties.Add("privateKeyPath", PrivateKeyFilePath);
-                        properties.Add("passphrase", PrivateKeyPassword);
+                        properties.Add("secret:passphrase", PrivateKeyPassword);
                         break;
 
                     default:
