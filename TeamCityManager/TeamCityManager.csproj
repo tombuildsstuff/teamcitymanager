@@ -44,11 +44,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\BuildTriggers\BuildTriggerBuilder.cs" />
+    <Compile Include="Builders\BuildTriggers\IBuildTriggerBuilder.cs" />
     <Compile Include="Entities\BuildConfiguration.cs" />
     <Compile Include="Entities\BuildStep.cs" />
     <Compile Include="Entities\BuildSteps\CustomScriptBuildStep.cs" />
     <Compile Include="Entities\BuildSteps\ExecutableBuildStep.cs" />
     <Compile Include="Entities\BuildTrigger.cs" />
+    <Compile Include="Entities\BuildTriggers\IBuildTrigger.cs" />
+    <Compile Include="Entities\BuildTriggers\FinishedBuildTrigger.cs" />
+    <Compile Include="Entities\BuildTriggers\VCSBuildTrigger.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\AttachedVCSRoot.cs" />

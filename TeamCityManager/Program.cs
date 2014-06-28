@@ -2,6 +2,7 @@
 {
     using System;
 
+    using TeamCityManager.Builders.BuildTriggers;
     using TeamCityManager.Infrastructure.Configuration;
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Repositories.BuildConfigurations;
@@ -27,7 +28,7 @@
             var logger = new ConsoleLogger();
 
             var teamcity = GetTeamCityClient(configuration);
-            var managementService = GetManagementService();
+            var managementService = GetManagementService(teamcity);
             managementService.Run(teamcity, logger);
 
             Console.ReadLine();
@@ -40,10 +41,9 @@
             return client;
         }
 
-        private static IManagementService GetManagementService()
+        private static IManagementService GetManagementService(ITeamCityClient client)
         {
-            var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()),
-                                                        new BuildStepsService());
+            var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()), new BuildStepsService(), new BuildTriggerBuilder(client));
             var groups = new GroupsService(new FakeGroupsRepository());
             var projects = new ProjectsService(new FakeProjectsRepository());
             var users = new UsersService(new FakeUsersRepository());

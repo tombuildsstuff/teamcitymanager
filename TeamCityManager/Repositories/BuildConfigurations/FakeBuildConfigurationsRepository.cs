@@ -5,6 +5,7 @@
 
     using TeamCityManager.Entities;
     using TeamCityManager.Entities.BuildSteps;
+    using TeamCityManager.Entities.BuildTriggers;
     using TeamCityManager.Repositories.Projects;
 
     public class FakeBuildConfigurationsRepository : IBuildConfigurationsRepository
@@ -27,7 +28,7 @@
         {
             return new BuildConfiguration
             {
-                Name = string.Format("Config {0} for {1}", id, project),
+                Name = GetProjectName(id, project),
                 Project = project,
                 Steps = GetBuildSteps(),
                 Triggers = GetBuildTriggers(id, project),
@@ -49,13 +50,26 @@
         private static List<BuildTrigger> GetBuildTriggers(int id, string project)
         {
             if (id == 1)
-                return new List<BuildTrigger>();
+            {
+                return new List<BuildTrigger>
+                {
+                    new BuildTrigger
+                    {
+                        Trigger = new VCSBuildTrigger()
+                    }
+                };
+            }
 
             // trigger off the previous step
             return new List<BuildTrigger>
             {
                 new BuildTrigger
                 {
+                    Trigger = new FinishedBuildTrigger
+                    {
+                        BuildConfigurationName = GetProjectName(id - 1, project),
+                        RunOnlyAfterSuccessfulBuild = id % 2 == 0
+                    }
                 }
             };
         }
@@ -112,6 +126,11 @@
                     }
                 }
             };
+        }
+
+        private static string GetProjectName(int id, string project)
+        {
+            return string.Format("Config {0} for {1}", id, project);
         }
     }
 }

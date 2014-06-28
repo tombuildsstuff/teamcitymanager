@@ -1,9 +1,9 @@
 ﻿namespace TeamCityManager.Entities
 {
+    using TeamCityManager.Entities.BuildTriggers;
+
     public class BuildTrigger
     {
-        public string BuildConfigurationName { get; set; }
-
-        public string Project { get; set; }
+        public IBuildTrigger Trigger { get; set; }
     }
 }

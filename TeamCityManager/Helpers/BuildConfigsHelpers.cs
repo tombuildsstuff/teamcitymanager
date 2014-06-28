@@ -28,6 +28,22 @@
             }
         }
 
+        public static void CreateBuildTrigger(this IBuildConfigs configs, BuildTypeLocator locator, Entities.BuildTrigger trigger)
+        {
+            // TODO: swap this so that it happens from reflection
+            var xmlTemplate = "<trigger type=\"{0}\"><properties>{1}</properties></trigger>";
+            var propertiesXml = string.Join(null, trigger.Trigger.Properties.Select(p => string.Format("<property name=\"{0}\" value=\"{1}\"/>", p.Key, p.Value)).ToList());
+            var xml = string.Format(xmlTemplate, trigger.Trigger.Type, propertiesXml);
+
+            try
+            {
+                configs.PostRawBuildTrigger(locator, xml);
+            }
+            catch (SerializationException)
+            {
+            }
+        }
+
         public static IList<BuildConfig> GetAttachedToVCSRoot(this IBuildConfigs configs, VcsRoot root)
         {
             var attachedBuildConfigurations = new List<BuildConfig>();
@@ -39,8 +55,23 @@
                 foreach (var entry in config.VcsRootEntries.VcsRootEntry)
                 {
                     if (entry.VcsRoot.Id.Equals(root.Id, StringComparison.InvariantCultureIgnoreCase))
-                        attachedBuildConfigurations.Add(buildConfig);
+                        attachedBuildConfigurations.Add(config);
                 }
+            }
+
+            return attachedBuildConfigurations;
+        }
+
+        public static IList<BuildConfig> GetWithTriggers(this IBuildConfigs configs)
+        {
+            var attachedBuildConfigurations = new List<BuildConfig>();
+            var buildConfigurations = configs.All();
+
+            foreach (var buildConfig in buildConfigurations)
+            {
+                var config = configs.BuildType(BuildTypeLocator.WithId(buildConfig.Id));
+                if (config.Triggers.Trigger.Any())
+                    attachedBuildConfigurations.Add(config);
             }
 
             return attachedBuildConfigurations;
