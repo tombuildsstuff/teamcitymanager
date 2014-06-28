@@ -8,6 +8,7 @@
     using TeamCityManager.Repositories.Groups;
     using TeamCityManager.Repositories.Projects;
     using TeamCityManager.Repositories.Users;
+    using TeamCityManager.Repositories.VCSRoots;
     using TeamCityManager.Services;
     using TeamCityManager.Services.BuildConfigurations;
     using TeamCityManager.Services.BuildSteps;
@@ -42,12 +43,12 @@
         private static IManagementService GetManagementService()
         {
             var builds = new BuildConfigurationsService(new FakeBuildConfigurationsRepository(new FakeProjectsRepository()),
-                                                        new BuildStepsService(),
-                                                        new FakeVCSRootsService());
+                                                        new BuildStepsService());
             var groups = new GroupsService(new FakeGroupsRepository());
             var projects = new ProjectsService(new FakeProjectsRepository());
             var users = new UsersService(new FakeUsersRepository());
-            return new ManagementService(builds, groups, projects, users);
+            var vcsRoots = new VCSRootsService(new FakeVCSRootsRepository());
+            return new ManagementService(builds, groups, projects, users, vcsRoots);
         }
     }
 }

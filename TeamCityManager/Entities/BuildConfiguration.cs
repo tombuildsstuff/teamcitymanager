@@ -12,6 +12,6 @@
 
         public List<BuildTrigger> Triggers { get; set; }
 
-        public List<VCSRoot> VCSRoots { get; set; }
+        public List<AttachedVCSRoot> VCSRoots { get; set; }
     }
 }

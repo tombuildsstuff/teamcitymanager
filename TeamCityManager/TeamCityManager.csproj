@@ -51,7 +51,11 @@
     <Compile Include="Entities\BuildTrigger.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\AttachedVCSRoot.cs" />
     <Compile Include="Entities\VCSRoot.cs" />
+    <Compile Include="Entities\VCSRoots\GitVCSRoot.cs" />
+    <Compile Include="Entities\VCSRoots\IVCSRoot.cs" />
+    <Compile Include="Helpers\BuildConfigsHelpers.cs" />
     <Compile Include="Infrastructure\Logging\ConsoleLogger.cs" />
     <Compile Include="Infrastructure\Logging\ILogger.cs" />
     <Compile Include="Program.cs" />
@@ -68,6 +72,8 @@
     <Compile Include="Infrastructure\Configuration\ITeamCityConfiguration.cs" />
     <Compile Include="Repositories\Users\FakeUsersRepository.cs" />
     <Compile Include="Repositories\Users\IUsersRepository.cs" />
+    <Compile Include="Repositories\VCSRoots\FakeVCSRootsRepository.cs" />
+    <Compile Include="Repositories\VCSRoots\IVCSRootsRepository.cs" />
     <Compile Include="Services\BuildConfigurations\BuildConfigurationsService.cs" />
     <Compile Include="Services\BuildConfigurations\IBuildConfigurationsService.cs" />
     <Compile Include="Services\BuildSteps\BuildStepsService.cs" />
@@ -83,7 +89,7 @@
     <Compile Include="Services\Projects\IProjectsService.cs" />
     <Compile Include="Services\Projects\ProjectsService.cs" />
     <Compile Include="Services\Users\UsersService.cs" />
-    <Compile Include="Services\VCSRoots\FakeVCSRootsService.cs" />
+    <Compile Include="Services\VCSRoots\VCSRootsService.cs" />
     <Compile Include="Services\VCSRoots\IVCSRootsService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +98,7 @@
     <Folder Include="Configuration\Users\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

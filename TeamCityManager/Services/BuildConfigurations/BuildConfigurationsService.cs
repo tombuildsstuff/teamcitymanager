@@ -8,22 +8,20 @@
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Repositories.BuildConfigurations;
     using TeamCityManager.Services.BuildSteps;
-    using TeamCityManager.Services.VCSRoots;
 
     using TeamCitySharp;
     using TeamCitySharp.DomainEntities;
+    using TeamCitySharp.Locators;
 
     public class BuildConfigurationsService : IBuildConfigurationsService
     {
         private readonly IBuildConfigurationsRepository _repository;
         private readonly IBuildStepsService _buildSteps;
-        private readonly IVCSRootsService _vcsRoots;
 
-        public BuildConfigurationsService(IBuildConfigurationsRepository repository, IBuildStepsService buildSteps, IVCSRootsService vcsRoots)
+        public BuildConfigurationsService(IBuildConfigurationsRepository repository, IBuildStepsService buildSteps)
         {
             _repository = repository;
             _buildSteps = buildSteps;
-            _vcsRoots = vcsRoots;
         }
 
         public void Run(ITeamCityClient client, ILogger logger)
@@ -37,17 +35,17 @@
         {
             foreach (var config in localConfigurations)
             {
-                var teamcityConfig = GetTeamCityConfig(client, config);
-                if (teamcityConfig == null)
+                var buildConfig = GetTeamCityConfig(client, config);
+                if (buildConfig == null)
                 {
                     if (!CreateConfiguration(client, logger, config))
                         continue;
 
-                    teamcityConfig = GetTeamCityConfig(client, config);
+                    buildConfig = GetTeamCityConfig(client, config);
                 }
 
-                _vcsRoots.UpdateForBuildConfiguration(client, logger, config, teamcityConfig);
-                _buildSteps.UpdateForBuildConfiguration(client, logger, config, teamcityConfig);
+                AttachVCSRoots(client, logger, config, buildConfig);
+                _buildSteps.UpdateForBuildConfiguration(client, logger, config, buildConfig);
             }
         }
 
@@ -69,6 +67,16 @@
             }
 
             return false;
+        }
+
+        private void AttachVCSRoots(ITeamCityClient client, ILogger logger, BuildConfiguration config, BuildConfig buildConfig)
+        {
+            foreach (var root in config.VCSRoots)
+            {
+                logger.Info("Attaching VCS Root ID '{0}' to Build Configuration '{1}'..", root.Name, buildConfig.Id);
+                var teamCityRoot = client.VcsRoots.Get(BuildTypeLocator.WithName(root.Name));
+                client.VcsRoots.AttachVcsRoot(BuildTypeLocator.WithId(buildConfig.Id), teamCityRoot);
+            }
         }
 
         private BuildConfig GetTeamCityConfig(ITeamCityClient client, BuildConfiguration config)

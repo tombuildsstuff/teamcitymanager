@@ -5,7 +5,6 @@
 
     using TeamCityManager.Entities;
     using TeamCityManager.Entities.BuildSteps;
-
     using TeamCityManager.Repositories.Projects;
 
     public class FakeBuildConfigurationsRepository : IBuildConfigurationsRepository
@@ -32,20 +31,17 @@
                 Project = project,
                 Steps = GetBuildSteps(),
                 Triggers = GetBuildTriggers(id, project),
-                VCSRoots = GetVCSRoots(id)
+                VCSRoots = GetAttachedVCSRoots()
             };
         }
 
-        private static List<VCSRoot> GetVCSRoots(int id)
+        private static List<AttachedVCSRoot> GetAttachedVCSRoots()
         {
-            if (id != 1)
-                return new List<VCSRoot>();
-
-            return new List<VCSRoot>
+            return new List<AttachedVCSRoot>
             {
-                new VCSRoot
+                new AttachedVCSRoot
                 {
-                    RepositoryUrl = "http://github.com/tombuildsstuff/SimpleBackup.git"
+                    Name = string.Format("Simple Backup Github")
                 }
             };
         }
