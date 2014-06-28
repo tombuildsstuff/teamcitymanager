@@ -24,6 +24,7 @@
             var localProjects = _repository.GetAll();
 
             CreateOrUpdateProjects(client, logger, localProjects);
+            DeleteProjects(client, logger, localProjects);
         }
 
         private void CreateOrUpdateProjects(ITeamCityClient client, ILogger logger, IEnumerable<Project> localProjects)
@@ -32,11 +33,21 @@
             {
                 var teamcityProject = GetProject(client, project);
                 if (teamcityProject == null)
-                    CreateProject(client, logger, project);
+                {
+                    if (!CreateProject(client, logger, project))
+                        continue;
+
+                    teamcityProject = GetProject(client, project);
+                }
             }
         }
 
-        private void CreateProject(ITeamCityClient client, ILogger logger, Project project)
+        private void DeleteProjects(ITeamCityClient client, ILogger logger, List<Project> localProjects)
+        {
+            // TODO: implement me..
+        }
+
+        private bool CreateProject(ITeamCityClient client, ILogger logger, Project project)
         {
             logger.Info("Project {0} does not exist - creating", project.Name);
 
@@ -44,11 +55,12 @@
             if (teamcityProject == null)
             {
                 logger.Error("Error creating project {0}", project.Name);
-                return;
+                return false;
             }
 
             logger.Info("Created Project {0}", project.Name);
             project.Id = teamcityProject.Id;
+            return true;
         }
 
         private TeamCitySharp.DomainEntities.Project GetProject(ITeamCityClient client, Project project)
