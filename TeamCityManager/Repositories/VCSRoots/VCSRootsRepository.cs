@@ -9,13 +9,13 @@
 
     using TeamCityManager.Entities;
     using TeamCityManager.Entities.VCSRoots;
-    using TeamCityManager.Infrastructure.Configuration;
+    using TeamCityManager.Infrastructure.Configuration.Directories;
 
     public class VCSRootsRepository : IVCSRootsRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDirectoriesConfiguration _configuration;
 
-        public VCSRootsRepository(IConfiguration configuration)
+        public VCSRootsRepository(IDirectoriesConfiguration configuration)
         {
             _configuration = configuration;
         }

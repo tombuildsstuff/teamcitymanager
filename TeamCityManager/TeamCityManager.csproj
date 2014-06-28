@@ -45,6 +45,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,10 @@
     <Compile Include="Entities\VCSRoots\GitVCSRoot.cs" />
     <Compile Include="Entities\VCSRoots\IVCSRoot.cs" />
     <Compile Include="Helpers\BuildConfigsHelpers.cs" />
+    <Compile Include="Infrastructure\Configuration\Directories\DirectoriesConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\Directories\IDirectoriesConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\TeamCity\ITeamCityConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\TeamCity\TeamCityConfiguration.cs" />
     <Compile Include="Infrastructure\Logging\ConsoleLogger.cs" />
     <Compile Include="Infrastructure\Logging\ILogger.cs" />
     <Compile Include="Program.cs" />
@@ -74,8 +79,6 @@
     <Compile Include="Repositories\Projects\ProjectsRepository.cs" />
     <Compile Include="Repositories\Projects\IProjectsRepository.cs" />
     <Compile Include="Entities\Project.cs" />
-    <Compile Include="Infrastructure\Configuration\FakeConfiguration.cs" />
-    <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
     <Compile Include="Repositories\Users\UsersRepository.cs" />
     <Compile Include="Repositories\Users\IUsersRepository.cs" />
     <Compile Include="Repositories\VCSRoots\VCSRootsRepository.cs" />

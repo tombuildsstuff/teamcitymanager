@@ -10,13 +10,13 @@
     using TeamCityManager.Entities;
     using TeamCityManager.Entities.BuildSteps;
     using TeamCityManager.Entities.BuildTriggers;
-    using TeamCityManager.Infrastructure.Configuration;
+    using TeamCityManager.Infrastructure.Configuration.Directories;
 
     public class BuildConfigurationsRepository : IBuildConfigurationsRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDirectoriesConfiguration _configuration;
 
-        public BuildConfigurationsRepository(IConfiguration configuration)
+        public BuildConfigurationsRepository(IDirectoriesConfiguration configuration)
         {
             _configuration = configuration;
         }

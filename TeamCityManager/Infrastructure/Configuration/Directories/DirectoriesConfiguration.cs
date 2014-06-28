@@ -1,8 +1,9 @@
-﻿namespace TeamCityManager.Infrastructure.Configuration
+﻿namespace TeamCityManager.Infrastructure.Configuration.Directories
 {
+    using System.Configuration;
     using System.IO;
 
-    public class FakeConfiguration : IConfiguration
+    public class DirectoriesConfiguration : IDirectoriesConfiguration
     {
         public string BuildConfigurationsDirectory
         {
@@ -16,15 +17,7 @@
         {
             get
             {
-                return "C:\\Temp\\Configuration";
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return "passw0rd";
+                return ConfigurationManager.AppSettings["ConfigurationDirectory"];
             }
         }
 
@@ -33,22 +26,6 @@
             get
             {
                 return Path.Combine(Directory, "projects");
-            }
-        }
-
-        public string TeamCityServerUrl
-        {
-            get
-            {
-                return "teamcity";
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return "username";
             }
         }
 

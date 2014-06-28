@@ -7,13 +7,13 @@
     using Newtonsoft.Json;
 
     using TeamCityManager.Entities;
-    using TeamCityManager.Infrastructure.Configuration;
+    using TeamCityManager.Infrastructure.Configuration.Directories;
 
     public class UsersRepository : IUsersRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IDirectoriesConfiguration _configuration;
 
-        public UsersRepository(IConfiguration configuration)
+        public UsersRepository(IDirectoriesConfiguration configuration)
         {
             _configuration = configuration;
         }

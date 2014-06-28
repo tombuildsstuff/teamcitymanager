@@ -1,18 +1,12 @@
-﻿namespace TeamCityManager.Infrastructure.Configuration
+﻿namespace TeamCityManager.Infrastructure.Configuration.Directories
 {
-    public interface IConfiguration
+    public interface IDirectoriesConfiguration
     {
         string BuildConfigurationsDirectory { get; }
 
         string Directory { get; }
 
-        string Password { get; }
-
         string ProjectsDirectory { get; }
-
-        string TeamCityServerUrl { get; }
-
-        string Username { get; }
 
         string UsersDirectory { get; }
 

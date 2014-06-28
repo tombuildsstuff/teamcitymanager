@@ -4,6 +4,8 @@
 
     using TeamCityManager.Builders.BuildTriggers;
     using TeamCityManager.Infrastructure.Configuration;
+    using TeamCityManager.Infrastructure.Configuration.Directories;
+    using TeamCityManager.Infrastructure.Configuration.TeamCity;
     using TeamCityManager.Infrastructure.Logging;
     using TeamCityManager.Repositories.BuildConfigurations;
     using TeamCityManager.Repositories.Projects;
@@ -22,29 +24,30 @@
     {
         public static void Main(string[] args)
         {
-            var configuration = new FakeConfiguration();
             var logger = new ConsoleLogger();
 
-            var teamcity = GetTeamCityClient(configuration);
-            var managementService = GetManagementService(teamcity, configuration);
+            var teamcity = GetTeamCityClient();
+            var managementService = GetManagementService(teamcity);
             managementService.Run(teamcity, logger);
 
             Console.ReadLine();
         }
 
-        private static ITeamCityClient GetTeamCityClient(IConfiguration configuration)
+        private static ITeamCityClient GetTeamCityClient()
         {
-            var client = new TeamCityClient(configuration.TeamCityServerUrl);
-            client.Connect(configuration.Username, configuration.Password);
+            var config = new TeamCityConfiguration();
+            var client = new TeamCityClient(config.ServerUrl, config.UseSsl);
+            client.Connect(config.Username, config.Password);
             return client;
         }
 
-        private static IManagementService GetManagementService(ITeamCityClient client, IConfiguration configuration)
+        private static IManagementService GetManagementService(ITeamCityClient client)
         {
-            var buildConfigurationsRepository = new BuildConfigurationsRepository(configuration);
-            var projectsRepository = new ProjectsRepository(configuration);
-            var usersRepository = new UsersRepository(configuration);
-            var vcsRootsRepository = new VCSRootsRepository(configuration);
+            var config = new DirectoriesConfiguration();
+            var buildConfigurationsRepository = new BuildConfigurationsRepository(config);
+            var projectsRepository = new ProjectsRepository(config);
+            var usersRepository = new UsersRepository(config);
+            var vcsRootsRepository = new VCSRootsRepository(config);
             var buildStepsService = new BuildStepsService();
             var buildTriggerBuilder = new BuildTriggerBuilder(client);
 
