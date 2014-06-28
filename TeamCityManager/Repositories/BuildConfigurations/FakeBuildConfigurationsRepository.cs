@@ -26,7 +26,47 @@
 
         private static BuildConfiguration GetBuildConfiguration(int id, string project)
         {
-            var steps = new List<BuildStep>
+            return new BuildConfiguration
+            {
+                Name = string.Format("Config {0} for {1}", id, project),
+                Project = project,
+                Steps = GetBuildSteps(),
+                Triggers = GetBuildTriggers(id, project),
+                VCSRoots = GetVCSRoots(id)
+            };
+        }
+
+        private static List<VCSRoot> GetVCSRoots(int id)
+        {
+            if (id != 1)
+                return new List<VCSRoot>();
+
+            return new List<VCSRoot>
+            {
+                new VCSRoot
+                {
+                    RepositoryUrl = "http://github.com/tombuildsstuff/SimpleBackup.git"
+                }
+            };
+        }
+
+        private static List<BuildTrigger> GetBuildTriggers(int id, string project)
+        {
+            if (id == 1)
+                return new List<BuildTrigger>();
+
+            // trigger off the previous step
+            return new List<BuildTrigger>
+            {
+                new BuildTrigger
+                {
+                }
+            };
+        }
+
+        private static List<BuildStep> GetBuildSteps()
+        {
+            return new List<BuildStep>
             {
                 new BuildStep
                 {
@@ -66,14 +106,15 @@
                     {
                         CustomScript = "echo Hello World",
                     }
+                },
+                new BuildStep
+                {
+                    Name = "5) Run Another Custom Script",
+                    Step = new CustomScriptBuildStep
+                    {
+                        CustomScript = "echo I'm a second custom script",
+                    }
                 }
-            };
-
-            return new BuildConfiguration
-            {
-                Name = string.Format("Config {0} for {1}", id, project),
-                Project = project,
-                Steps = steps
             };
         }
     }
