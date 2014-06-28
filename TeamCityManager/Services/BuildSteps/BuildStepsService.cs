@@ -16,6 +16,12 @@
     {
         public void UpdateForBuildConfiguration(ITeamCityClient client, ILogger logger, BuildConfiguration config, BuildConfig teamcityConfig)
         {
+            CreateOrUpdateBuildSteps(client, logger, config, teamcityConfig);
+            RemoveUnmanagedBuildSteps(client, logger, config, teamcityConfig);
+        }
+
+        private void CreateOrUpdateBuildSteps(ITeamCityClient client, ILogger logger, BuildConfiguration config, BuildConfig teamcityConfig)
+        {
             var position = 1;
             foreach (var step in config.Steps)
             {
@@ -27,6 +33,16 @@
                 }
 
                 position++;
+            }
+        }
+
+        private void RemoveUnmanagedBuildSteps(ITeamCityClient client, ILogger logger, BuildConfiguration config, BuildConfig teamcityConfig)
+        {
+            var unmanagedSteps = teamcityConfig.Steps.Step.Where(tcs => !config.Steps.Any(cs => tcs.Name.Equals(cs.Name, StringComparison.InvariantCultureIgnoreCase))).ToList();
+            foreach (var unmanagedStep in unmanagedSteps)
+            {
+                logger.Info("Removing Unmanaged Build Step: '{0}' with ID '{1}'", unmanagedStep.Name, unmanagedStep.Id);
+                client.BuildConfigs.DeleteBuildStep(BuildTypeLocator.WithId(teamcityConfig.Id), unmanagedStep.Id);
             }
         }
 
