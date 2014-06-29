@@ -1,9 +1,6 @@
 ﻿namespace TeamCityManager
 {
-    using System;
-
     using TeamCityManager.Builders.BuildTriggers;
-    using TeamCityManager.Infrastructure.Configuration;
     using TeamCityManager.Infrastructure.Configuration.Directories;
     using TeamCityManager.Infrastructure.Configuration.TeamCity;
     using TeamCityManager.Infrastructure.Logging;
@@ -29,8 +26,6 @@
             var teamcity = GetTeamCityClient();
             var managementService = GetManagementService(teamcity);
             managementService.Run(teamcity, logger);
-
-            Console.ReadLine();
         }
 
         private static ITeamCityClient GetTeamCityClient()
