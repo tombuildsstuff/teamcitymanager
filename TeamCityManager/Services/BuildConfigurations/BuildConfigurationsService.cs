@@ -1,5 +1,6 @@
 ﻿namespace TeamCityManager.Services.BuildConfigurations
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -32,8 +33,9 @@
         public void Run(ITeamCityClient client, ILogger logger)
         {
             var localConfigurations = _repository.GetAll();
-            
+
             RemoveExistingBuildTriggers(client, logger);
+            RemoveUnmanagedBuildConfigurations(client, logger, localConfigurations);
             CreateOrUpdateConfigurations(client, logger, localConfigurations);
         }
 
@@ -59,6 +61,17 @@
             {
                 var buildConfig = GetTeamCityConfig(client, config);
                 AttachBuildTriggers(client, logger, config, buildConfig);
+            }
+        }
+
+        private void RemoveUnmanagedBuildConfigurations(ITeamCityClient client, ILogger logger, IEnumerable<BuildConfiguration> localConfigurations)
+        {
+            var teamcityConfigurations = client.BuildConfigs.All();
+            var unmanagedConfigurations = teamcityConfigurations.Where(tcc => !localConfigurations.Any(lc => lc.Name.Equals(tcc.Name, StringComparison.InvariantCultureIgnoreCase)));
+            foreach (var configuration in unmanagedConfigurations)
+            {
+                logger.Info(string.Format("Removing unmanaged build configuration '{0}'", configuration.Id));
+                client.BuildConfigs.DeleteConfiguration(BuildTypeLocator.WithId(configuration.Id));
             }
         }
 
